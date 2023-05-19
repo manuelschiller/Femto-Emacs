@@ -22,9 +22,11 @@ OBJ     = complete$(O) command$(O) data$(O) display$(O) gap$(O) \
              main$(O) femtolisp/interface2editor$(O) \
              femtolisp/flcall$(O)
 
-femtoEmacs$(E) : $(OBJ)
-	cd femtolisp && make -f Makefile 
+femtoEmacs$(E) : $(OBJ) femto$(B)
 	$(LD) $(LDFLAGS) $(OBJ)  $(LISPLIBS) $(LIBS) -o femto$(E)
+
+femtolisp/flisp: femtolisp/Makefile
+	cd femtolisp && make -f Makefile 
 
 interface2editor$(E) : public.h $(OBJ)
 	$(CC) $(CFLAGS)  -I$(LLTDIR) -c femtolisp/interface2editor.c
@@ -74,8 +76,11 @@ undo$(O): undo.c header.h public.h
 Main$(O): main.c header.h public.h
 	$(CC) $(CFLAGS)  -I$(LLTDIR) -c main.c
 
+femto$(B): mkeditorboot.lsp femtolisp/flisp femtolisp/femtosystem.lsp femtolisp/compiler.lsp findinlisppath.lsp
+	femtolisp/flisp < mkeditorboot.lsp
+
 clean:
-	-$(RM) -f $(OBJ) femto$(E) *.c~ *.h~
+	-$(RM) -f $(OBJ) femto$(E) femto$(B) *.c~ *.h~
 	cd femtolisp && make clean
 	cd femtolisp/llt && make clean
 
