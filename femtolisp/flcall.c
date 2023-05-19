@@ -97,8 +97,6 @@ int init_lisp(int nheap_k)
 	fl_gc_handle(&args[1]);
 
 	FL_TRY_EXTERN {
-		char buff[200];
-		
 		/* read system image file "femto.boot" */
 		args[0] = cvalue_static_cstring(fname_buf);
 		args[1] = symbol(":read");
@@ -111,8 +109,7 @@ int init_lisp(int nheap_k)
 		(void)fl_applyn(1, symbol_value(symbol("__start")));
 
 		/* load init.lsp */
-		sprintf(buff, "(load \"%s/init.lsp\")", getenv("HOME"));
-		(void)call_lisp(buff);
+		(void)call_lisp("(load (find-in-lisp-path \"init.lsp\"))");
 		/* FIXME we are no checking the output of call_lisp() here - we assume that it worked */
 		
 	} FL_CATCH_EXTERN {
