@@ -2,6 +2,7 @@
 # makefile
 #
 
+PREFIX	= /opt/Femto-Emacs
 CC      = cc
 CFLAGS  = -O -Wall -g
 LLTDIR 	= ./femtolisp/llt
@@ -12,6 +13,7 @@ LISPLIBS = femtolisp/libflisp.a femtolisp/llt/libllt.a
 CP      = cp
 MV      = mv
 RM      = rm
+MKDIR	= mkdir
 
 E       =
 O       = .o
@@ -85,10 +87,12 @@ clean:
 	cd femtolisp/llt && make clean
 
 install:
-	-$(CP) femto$(E) /usr/local/bin/
-	-$(CP) femto$(B) /usr/local/bin/
-	-$(CP) r5rs.scm $(HOME)
-	-$(CP) init.lsp $(HOME)
-	-$(CP) samples/bufmenu.scm $(HOME)
-	-$(CP) samples/killring.scm $(HOME)
+	-$(MKDIR) -p $(PREFIX)/bin $(PREFIX)/share/Femto-Emacs
+	-$(CP) femto$(E) $(PREFIX)/bin
+	-$(CP) femto$(B) $(PREFIX)/share/Femto-Emacs
+	-$(CP) init.lsp $(PREFIX)/share/Femto-Emacs
+	-$(CP) r5rs.scm $(PREFIX)/share/Femto-Emacs
+	-$(CP) samples/bufmenu.scm $(PREFIX)/share/Femto-Emacs
+	-$(CP) samples/dired.scm $(PREFIX)/share/Femto-Emacs
+	-$(CP) samples/killring.scm $(PREFIX)/share/Femto-Emacs
 
