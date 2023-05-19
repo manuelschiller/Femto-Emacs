@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <assert.h>
+#include <unistd.h>
 #include "llt/llt.h"
 #include "flisp.h"
 
@@ -87,11 +88,25 @@ int init_lisp(int nheap_k)
 	char *exedir = (str == UNBOUND ? NULL : cvalue_data(str));
 
 	if (exedir != NULL) {
-		strcat(fname_buf, exedir);
-		strcat(fname_buf, PATHSEPSTRING);
-	}
-
-	strcat(fname_buf, "femto.boot");
+                char *femtobootloc[2][10] = {
+                    {exedir, PATHSEPSTRING, "..", PATHSEPSTRING, "share",
+                     PATHSEPSTRING, "Femto-Emacs", PATHSEPSTRING, "femto.boot",
+                     NULL},
+                    {exedir, PATHSEPSTRING, "femto.boot", NULL}
+                };
+                int i;
+                for (i = 0;
+                     i < (sizeof(femtobootloc) / sizeof(femtobootloc[0]));
+                     ++i) {
+                        char** p = &femtobootloc[i][0];
+                        fname_buf[0] = '\0';
+                        for (; NULL != *p; ++p) strcat(fname_buf, *p);
+                        if (0 == access(fname_buf, R_OK))
+                            break;
+                }
+	} else {
+	        strcat(fname_buf, "femto.boot");
+        }
 
 	fl_gc_handle(&args[0]);
 	fl_gc_handle(&args[1]);
