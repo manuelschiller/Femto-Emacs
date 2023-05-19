@@ -8,7 +8,7 @@
 (define (home f)
    (string (os.getenv "HOME") "/" f))
 
-(load (home "r5rs.scm"))
+(load (find-in-lisp-path "r5rs.scm"))
 
 ;;
 ;; comment the line below to disable unlimited undo mode
@@ -152,22 +152,22 @@
 
 ;; bind later C-x C-b
 (define (invoke-buffer-menu)
-  (if (not (top-level-bound? 'bufm-stop)) (load (home "bufmenu.scm")))
+  (if (not (top-level-bound? 'bufm-stop)) (load (find-in-lisp-path "bufmenu.scm")))
   (buffer-menu))
 
 ;; bind later C-c i
 (define (invoke-insert-kill-ring)
-  (if (not (top-level-bound? 'kill-ring-menu)) (load (home "killring.scm")))
+  (if (not (top-level-bound? 'kill-ring-menu)) (load (find-in-lisp-path "killring.scm")))
   (insert-kill-ring))
 
 ;; bind later C-c k
 (define (invoke-kill-ring-menu)
-  (if (not (top-level-bound? 'kill-ring-menu)) (load (home "killring.scm")))
+  (if (not (top-level-bound? 'kill-ring-menu)) (load (find-in-lisp-path "killring.scm")))
   (kill-ring-menu))
 
 ;; bind later C-x C-d
 (define (invoke-dired)
-  (if (not (top-level-bound? 'dired)) (load (home "dired.scm")))
+  (if (not (top-level-bound? 'dired)) (load (find-in-lisp-path "dired.scm")))
   (dired))
 
 ;;;;;;; C-x C-g
