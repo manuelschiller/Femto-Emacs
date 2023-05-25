@@ -1,3 +1,12 @@
+# Hacked version
+While this is a fork of Femto-Emacs, I have a couple of what may
+charitably be called "local additions" (or, not so charitably,
+hacks) that I use on some of my systems. Please be aware that is is
+not the official Femto-Emacs, and that my hacks may well break things
+for you (and, possibly, me). Use at your own risk (if at all).
+
+Still, if you find something here that's useful, feel free to pick it up!
+
 [![Join the chat at https://gitter.im/FemtoLisp/flisp](https://badges.gitter.im/FemtoLisp/flisp.svg)](https://gitter.im/FemtoLisp/flisp)
 
 # Femto-Emacs
